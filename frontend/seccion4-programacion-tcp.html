@@ -22,13 +22,6 @@
 
       <h2 class="section-title">Programación de Servidor y Cliente TCP</h2>
 
-      <div class="content-text">
-        <p>Servidor: <code>socket()</code> → <code>bind()</code> → <code>listen()</code> → <code>accept()</code> → <code>recv()</code> → <code>send()</code> → <code>close()</code>.</p>
-        <p>Cliente: <code>socket()</code> → <code>connect()</code> → <code>encode()</code> → <code>send()</code> → <code>recv()</code> → <code>decode()</code> → <code>close()</code>.</p>
-        <p>El servidor debe iniciarse primero: debe estar escuchando antes de que el cliente intente conectarse.</p>
-      </div>
-
-      <h2 class="section-title">Prueba de Conocimiento</h2>
       <div id="quiz-container"></div>
 
       <div class="btn-group">
@@ -44,24 +37,24 @@
   <script>
     const questions = [
       {
-        question: 'En Python, ¿qué instrucción del lado del servidor asigna la IP y el puerto antes de escuchar conexiones?',
-        options: ['listen()', 'bind()', 'accept()', 'connect()']
+        question: '¿Por qué se aplica encode() antes de send() y decode() al recibir con recv(), en vez de enviar texto directamente?',
+        options: ['Porque los sockets solo transmiten bytes, no cadenas de texto directamente', 'Porque encode() cifra el mensaje por seguridad', 'Porque decode() comprime los datos', 'Son pasos opcionales que solo mejoran el rendimiento']
       },
       {
-        question: '¿Qué instrucción coloca al servidor en modo de espera activa de conexiones entrantes?',
-        options: ['socket()', 'listen()', 'recv()', 'close()']
-      },
-      {
-        question: 'Del lado del cliente, ¿qué instrucción establece la conexión hacia el servidor usando su IP y puerto?',
+        question: 'Un cliente ya creó su socket con socket(). ¿Qué instrucción debe ejecutar a continuación para poder enviar datos al servidor?',
         options: ['bind()', 'connect()', 'accept()', 'listen()']
       },
       {
-        question: 'Antes de enviar un mensaje de texto por un socket, ¿qué operación se debe aplicar sobre la cadena de texto?',
-        options: ['decode(), para convertirla en texto legible', 'encode(), para convertirla a bytes', 'bind(), para asignar el puerto', 'listen(), para escuchar']
+        question: 'Un servidor ya ejecutó socket() y bind(). ¿Qué instrucción falta para que pueda empezar a recibir solicitudes de conexión?',
+        options: ['connect()', 'listen()', 'encode()', 'close()']
       },
       {
-        question: 'Al ejecutar una práctica de comunicación cliente-servidor en la terminal, ¿por qué debe iniciarse primero el servidor?',
-        options: ['Porque consume menos memoria', 'Porque debe estar escuchando antes de que el cliente intente conectarse', 'Porque el cliente no necesita IP', 'Porque así lo exige el sistema operativo']
+        question: 'Un desarrollador olvida ejecutar bind() antes de listen(). ¿Qué problema es más probable?',
+        options: ['Ninguno, bind() es opcional', 'El socket no tendrá una IP/puerto definidos, por lo que listen() fallará o escuchará en una configuración indefinida', 'El servidor actuará como cliente', 'Los datos se enviarán sin necesidad de conexión']
+      },
+      {
+        question: 'Si el cliente ejecuta close() inmediatamente después de send(), sin llamar a recv(), ¿qué consecuencia tiene?',
+        options: ['Ninguna, el mensaje se recibe automáticamente después', 'Cierra la conexión antes de poder leer la respuesta del servidor, perdiendo esa información', 'El servidor no podría procesar el mensaje enviado', 'Se genera un error de bind()']
       }
     ];
 

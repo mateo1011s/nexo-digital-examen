@@ -22,12 +22,6 @@
 
       <h2 class="section-title">Sockets y Protocolos de Transporte</h2>
 
-      <div class="content-text">
-        <p>Un <strong>socket</strong> es una interfaz que permite la comunicación activa entre procesos. Se identifica de forma única mediante la "tríada": <strong>IP</strong> (dispositivo), <strong>puerto</strong> (aplicación) y <strong>protocolo</strong> (reglas de transporte).</p>
-        <p><strong>TCP</strong> prioriza la fiabilidad (web, archivos); <strong>UDP</strong> prioriza la velocidad, sin garantizar la entrega (streaming, videojuegos).</p>
-      </div>
-
-      <h2 class="section-title">Prueba de Conocimiento</h2>
       <div id="quiz-container"></div>
 
       <div class="btn-group">
@@ -44,23 +38,23 @@
     const questions = [
       {
         question: '¿Qué es un socket dentro de una comunicación en red?',
-        options: ['Un cable físico de conexión', 'Una interfaz que permite la comunicación entre procesos o dispositivos', 'Un tipo de dirección MAC', 'Un servidor de nombres de dominio (DNS)']
+        options: ['Un cable físico de conexión', 'Una interfaz que permite la comunicación activa entre procesos o dispositivos', 'Un tipo de dirección MAC', 'Un servidor de nombres de dominio (DNS)']
       },
       {
-        question: 'Un socket se identifica de forma única mediante la combinación de:',
-        options: ['Usuario y contraseña', 'IP, puerto y protocolo', 'Solo la dirección IP', 'Nombre de dominio y puerto']
+        question: 'Dos aplicaciones distintas corren en el mismo servidor y comparten la misma IP. Un cliente logra comunicarse con la correcta y no con la otra. ¿Qué elemento de la tríada hace posible esa distinción?',
+        options: ['El protocolo', 'El número de puerto', 'La dirección IP', 'La dirección MAC']
       },
       {
-        question: 'Dentro de esa "tríada", ¿qué elemento identifica específicamente la aplicación o proceso dentro de un dispositivo?',
-        options: ['La dirección IP', 'El número de puerto', 'El protocolo', 'La dirección MAC']
+        question: 'Una videollamada transmite audio/video en tiempo real; puede perder algunos fragmentos sin arruinar la experiencia, pero no tolera retrasos largos. ¿Qué protocolo conviene y por qué?',
+        options: ['TCP, porque garantiza la entrega de todos los paquetes', 'UDP, porque prioriza la velocidad sobre la garantía de entrega', 'TCP, porque no requiere conexión previa', 'UDP, porque reenvía automáticamente los paquetes perdidos']
       },
       {
-        question: 'Una aplicación de streaming de video en vivo prioriza la velocidad aunque se pierdan algunos paquetes. ¿Qué protocolo de transporte es más adecuado?',
-        options: ['TCP', 'UDP', 'HTTP', 'FTP']
+        question: 'Dos conexiones comparten la misma IP y el mismo puerto, pero una usa TCP y otra UDP. ¿Son el mismo socket o sockets distintos?',
+        options: ['Son el mismo socket, porque IP y puerto ya los identifican', 'Son sockets distintos, porque el protocolo también forma parte de la identificación única', 'Son el mismo socket solo si están en la misma red', 'No se puede determinar sin conocer el sistema operativo']
       },
       {
-        question: '¿Por qué se prefiere TCP sobre UDP para la navegación web y la transferencia de archivos?',
-        options: ['Porque TCP es más rápido', 'Porque TCP garantiza que los datos lleguen completos y en orden', 'Porque TCP no usa direcciones IP', 'Porque TCP no requiere conexión']
+        question: 'Dentro de la tríada del socket, ¿qué representa la IP en comparación con el puerto?',
+        options: ['La IP identifica el proceso y el puerto identifica el dispositivo', 'La IP identifica el dispositivo dentro de la red y el puerto identifica el proceso o aplicación específica dentro de ese dispositivo', 'Ambos identifican lo mismo', 'La IP identifica el protocolo y el puerto la ruta']
       }
     ];
 
