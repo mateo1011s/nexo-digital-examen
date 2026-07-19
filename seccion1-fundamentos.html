@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misión TCP/IP - Sección 1: Fundamentos y Capas</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card card-wide">
+      <div class="status-bar">
+        <span class="status-user" id="status-user"></span>
+        <span class="status-curso" id="status-curso"></span>
+        <span class="status-score">⚡ Sección 1 / 4</span>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-label" id="progress-label">0 / 5 respondidas</div>
+
+      <h2 class="section-title">Fundamentos TCP/IP y Capas de Red</h2>
+
+      <div class="content-text">
+        <p>TCP/IP es el conjunto de protocolos que permite la comunicación entre dispositivos en una red. <strong>IP</strong> se encarga del direccionamiento y la ruta de los paquetes; <strong>TCP</strong> garantiza que la información llegue completa, fragmentando y reensamblando los datos.</p>
+        <p>Ese proceso se organiza en <strong>4 capas</strong>: Aplicación (HTTP, FTP, SMTP, DNS), Transporte (TCP/UDP), Internet (IP) y Acceso a la Red (infraestructura física).</p>
+      </div>
+
+      <h2 class="section-title">Prueba de Conocimiento</h2>
+      <div id="quiz-container"></div>
+
+      <div class="btn-group">
+        <a href="seccion2-sockets.html" class="btn btn-primary" id="next-btn">Siguiente misión</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/particles.js"></script>
+  <script src="config.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script>
+    const questions = [
+      {
+        question: '¿Cuál es la función principal de TCP dentro del conjunto de protocolos TCP/IP?',
+        options: ['Asignar direcciones físicas (MAC)', 'Garantizar la entrega confiable y ordenada de los datos', 'Convertir señales digitales en analógicas', 'Enrutar paquetes entre routers']
+      },
+      {
+        question: 'Un mensaje se fragmenta en paquetes pequeños en el origen y se reensambla en el destino. ¿Qué protocolo realiza esta tarea?',
+        options: ['IP', 'TCP', 'HTTP', 'Ethernet']
+      },
+      {
+        question: '¿Qué capa del modelo TCP/IP contiene protocolos como HTTP, FTP, SMTP y DNS?',
+        options: ['Acceso a la Red', 'Internet', 'Transporte', 'Aplicación']
+      },
+      {
+        question: '¿Qué capa es responsable del enrutamiento de paquetes usando direcciones IP?',
+        options: ['Aplicación', 'Internet', 'Transporte', 'Acceso a la Red']
+      },
+      {
+        question: 'Un técnico necesita diagnosticar por qué las señales no llegan a la tarjeta de red física de un equipo. ¿En qué capa del modelo debería enfocar su revisión?',
+        options: ['Aplicación', 'Transporte', 'Internet', 'Acceso a la Red']
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('status-user').textContent = '👤 ' + (sessionStorage.getItem('apellidos') || '—');
+      document.getElementById('status-curso').textContent = '📚 ' + (sessionStorage.getItem('curso') || '—');
+      if (!sessionStorage.getItem('apellidos')) { window.location.href = 'index.html'; return; }
+      QuizEngine.init('s1', questions);
+    });
+  </script>
+</body>
+</html>

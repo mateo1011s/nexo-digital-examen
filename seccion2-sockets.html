@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misión TCP/IP - Sección 2: Sockets</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card card-wide">
+      <div class="status-bar">
+        <span class="status-user" id="status-user"></span>
+        <span class="status-curso" id="status-curso"></span>
+        <span class="status-score">⚡ Sección 2 / 4</span>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-label" id="progress-label">0 / 5 respondidas</div>
+
+      <h2 class="section-title">Sockets y Protocolos de Transporte</h2>
+
+      <div class="content-text">
+        <p>Un <strong>socket</strong> es una interfaz que permite la comunicación activa entre procesos. Se identifica de forma única mediante la "tríada": <strong>IP</strong> (dispositivo), <strong>puerto</strong> (aplicación) y <strong>protocolo</strong> (reglas de transporte).</p>
+        <p><strong>TCP</strong> prioriza la fiabilidad (web, archivos); <strong>UDP</strong> prioriza la velocidad, sin garantizar la entrega (streaming, videojuegos).</p>
+      </div>
+
+      <h2 class="section-title">Prueba de Conocimiento</h2>
+      <div id="quiz-container"></div>
+
+      <div class="btn-group">
+        <a href="seccion3-cliente-servidor.html" class="btn btn-primary" id="next-btn">Siguiente misión</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/particles.js"></script>
+  <script src="config.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script>
+    const questions = [
+      {
+        question: '¿Qué es un socket dentro de una comunicación en red?',
+        options: ['Un cable físico de conexión', 'Una interfaz que permite la comunicación entre procesos o dispositivos', 'Un tipo de dirección MAC', 'Un servidor de nombres de dominio (DNS)']
+      },
+      {
+        question: 'Un socket se identifica de forma única mediante la combinación de:',
+        options: ['Usuario y contraseña', 'IP, puerto y protocolo', 'Solo la dirección IP', 'Nombre de dominio y puerto']
+      },
+      {
+        question: 'Dentro de esa "tríada", ¿qué elemento identifica específicamente la aplicación o proceso dentro de un dispositivo?',
+        options: ['La dirección IP', 'El número de puerto', 'El protocolo', 'La dirección MAC']
+      },
+      {
+        question: 'Una aplicación de streaming de video en vivo prioriza la velocidad aunque se pierdan algunos paquetes. ¿Qué protocolo de transporte es más adecuado?',
+        options: ['TCP', 'UDP', 'HTTP', 'FTP']
+      },
+      {
+        question: '¿Por qué se prefiere TCP sobre UDP para la navegación web y la transferencia de archivos?',
+        options: ['Porque TCP es más rápido', 'Porque TCP garantiza que los datos lleguen completos y en orden', 'Porque TCP no usa direcciones IP', 'Porque TCP no requiere conexión']
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('status-user').textContent = '👤 ' + (sessionStorage.getItem('apellidos') || '—');
+      document.getElementById('status-curso').textContent = '📚 ' + (sessionStorage.getItem('curso') || '—');
+      if (!sessionStorage.getItem('apellidos')) { window.location.href = 'index.html'; return; }
+      QuizEngine.init('s2', questions);
+    });
+  </script>
+</body>
+</html>

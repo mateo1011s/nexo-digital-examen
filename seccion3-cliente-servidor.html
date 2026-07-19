@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misión TCP/IP - Sección 3: Cliente-Servidor</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card card-wide">
+      <div class="status-bar">
+        <span class="status-user" id="status-user"></span>
+        <span class="status-curso" id="status-curso"></span>
+        <span class="status-score">⚡ Sección 3 / 4</span>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-label" id="progress-label">0 / 5 respondidas</div>
+
+      <h2 class="section-title">Arquitectura Cliente-Servidor</h2>
+
+      <div class="content-text">
+        <p>El <strong>cliente</strong> es el nodo proactivo que inicia la comunicación. El <strong>servidor</strong> es el nodo de escucha que espera conexiones.</p>
+        <p>Secuencia: configuración y escucha → solicitud de conexión → canal activo-activo → flujo de información → liberación de recursos.</p>
+      </div>
+
+      <h2 class="section-title">Prueba de Conocimiento</h2>
+      <div id="quiz-container"></div>
+
+      <div class="btn-group">
+        <a href="seccion4-programacion-tcp.html" class="btn btn-primary" id="next-btn">Siguiente misión</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/particles.js"></script>
+  <script src="config.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script>
+    const questions = [
+      {
+        question: 'En la arquitectura cliente-servidor, ¿qué dispositivo inicia la comunicación?',
+        options: ['El servidor', 'El cliente', 'El router', 'Ambos simultáneamente']
+      },
+      {
+        question: '¿Qué caracteriza al servidor en este modelo?',
+        options: ['Inicia todas las conexiones', 'Permanece a la escucha esperando conexiones entrantes', 'No necesita IP fija', 'Se cierra automáticamente tras cada mensaje']
+      },
+      {
+        question: '¿Qué ocurre justo después de que el cliente solicita la conexión?',
+        options: ['Se libera la conexión', 'El servidor acepta la conexión y se abre un canal bidireccional', 'El cliente se desconecta', 'Se reinicia el servidor']
+      },
+      {
+        question: '¿Cuál es el último paso lógico en la secuencia de una conexión cliente-servidor?',
+        options: ['Configuración y escucha', 'Solicitud de conexión', 'Flujo de información', 'Liberación de recursos']
+      },
+      {
+        question: 'Durante la fase de "flujo de información", ¿qué realizan cliente y servidor?',
+        options: ['Cierran la conexión', 'Intercambian datos mediante envío y recepción de paquetes', 'Configuran el socket por primera vez', 'Esperan sin comunicarse']
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('status-user').textContent = '👤 ' + (sessionStorage.getItem('apellidos') || '—');
+      document.getElementById('status-curso').textContent = '📚 ' + (sessionStorage.getItem('curso') || '—');
+      if (!sessionStorage.getItem('apellidos')) { window.location.href = 'index.html'; return; }
+      QuizEngine.init('s3', questions);
+    });
+  </script>
+</body>
+</html>

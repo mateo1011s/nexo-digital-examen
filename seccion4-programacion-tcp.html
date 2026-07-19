@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misión TCP/IP - Sección 4: Programación TCP</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card card-wide">
+      <div class="status-bar">
+        <span class="status-user" id="status-user"></span>
+        <span class="status-curso" id="status-curso"></span>
+        <span class="status-score">⚡ Sección 4 / 4</span>
+      </div>
+
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-label" id="progress-label">0 / 5 respondidas</div>
+
+      <h2 class="section-title">Programación de Servidor y Cliente TCP</h2>
+
+      <div class="content-text">
+        <p>Servidor: <code>socket()</code> → <code>bind()</code> → <code>listen()</code> → <code>accept()</code> → <code>recv()</code> → <code>send()</code> → <code>close()</code>.</p>
+        <p>Cliente: <code>socket()</code> → <code>connect()</code> → <code>encode()</code> → <code>send()</code> → <code>recv()</code> → <code>decode()</code> → <code>close()</code>.</p>
+        <p>El servidor debe iniciarse primero: debe estar escuchando antes de que el cliente intente conectarse.</p>
+      </div>
+
+      <h2 class="section-title">Prueba de Conocimiento</h2>
+      <div id="quiz-container"></div>
+
+      <div class="btn-group">
+        <a href="final.html" class="btn btn-primary" id="next-btn">Finalizar misión</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/particles.js"></script>
+  <script src="config.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/quiz.js"></script>
+  <script>
+    const questions = [
+      {
+        question: 'En Python, ¿qué instrucción del lado del servidor asigna la IP y el puerto antes de escuchar conexiones?',
+        options: ['listen()', 'bind()', 'accept()', 'connect()']
+      },
+      {
+        question: '¿Qué instrucción coloca al servidor en modo de espera activa de conexiones entrantes?',
+        options: ['socket()', 'listen()', 'recv()', 'close()']
+      },
+      {
+        question: 'Del lado del cliente, ¿qué instrucción establece la conexión hacia el servidor usando su IP y puerto?',
+        options: ['bind()', 'connect()', 'accept()', 'listen()']
+      },
+      {
+        question: 'Antes de enviar un mensaje de texto por un socket, ¿qué operación se debe aplicar sobre la cadena de texto?',
+        options: ['decode(), para convertirla en texto legible', 'encode(), para convertirla a bytes', 'bind(), para asignar el puerto', 'listen(), para escuchar']
+      },
+      {
+        question: 'Al ejecutar una práctica de comunicación cliente-servidor en la terminal, ¿por qué debe iniciarse primero el servidor?',
+        options: ['Porque consume menos memoria', 'Porque debe estar escuchando antes de que el cliente intente conectarse', 'Porque el cliente no necesita IP', 'Porque así lo exige el sistema operativo']
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('status-user').textContent = '👤 ' + (sessionStorage.getItem('apellidos') || '—');
+      document.getElementById('status-curso').textContent = '📚 ' + (sessionStorage.getItem('curso') || '—');
+      if (!sessionStorage.getItem('apellidos')) { window.location.href = 'index.html'; return; }
+      QuizEngine.init('s4', questions);
+    });
+  </script>
+</body>
+</html>
