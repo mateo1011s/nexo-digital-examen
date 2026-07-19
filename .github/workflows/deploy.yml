@@ -24,6 +24,9 @@ jobs:
           };
           EOF
 
+      - name: Quitar el .gitignore de frontend antes de publicar
+        run: rm -f frontend/.gitignore
+
       - name: Publicar carpeta frontend en gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:
