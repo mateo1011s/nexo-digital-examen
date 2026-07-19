@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misión TCP/IP - Registro</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="glitch" data-text="MISIÓN TCP/IP">MISIÓN TCP/IP</div>
+      <p class="subtitle">Reconectando la Red</p>
+      <p class="content-text" style="text-align:center;margin-bottom:2rem;">
+        Una falla mundial desconectó los servidores principales.<br>
+        Tu misión será restaurar la comunicación aprendiendo sobre <span class="highlight">TCP/IP</span> y <span class="highlight">Sockets</span>.
+      </p>
+      <p class="content-text" style="text-align:center;font-size:0.85rem;opacity:0.8;">
+        ⚠️ Esta evaluación admite <strong>un solo intento por alumno</strong>.
+      </p>
+
+      <form id="register-form">
+        <div class="form-group">
+          <label for="apellidos">Apellidos</label>
+          <input type="text" id="apellidos" placeholder="Ej: Pérez García" required autocomplete="family-name" maxlength="80">
+        </div>
+        <div class="form-group">
+          <label for="nombres">Nombres</label>
+          <input type="text" id="nombres" placeholder="Ej: Juan Carlos" required autocomplete="given-name" maxlength="80">
+        </div>
+        <div class="form-group">
+          <label for="curso">Curso</label>
+          <select id="curso" required>
+            <option value="">Selecciona tu curso...</option>
+            <option value="SIS5-001">SIS5-001</option>
+            <option value="SIS5-002">SIS5-002</option>
+          </select>
+        </div>
+
+        <div id="form-status" style="text-align:center;margin-bottom:1rem;font-size:0.85rem;"></div>
+
+        <div class="btn-group">
+          <button type="submit" class="btn btn-primary pulse" id="submit-btn">Iniciar Misión</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/js/particles.js"></script>
+  <script src="config.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script>
+    document.getElementById('register-form').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const apellidos = document.getElementById('apellidos').value.trim();
+      const nombres = document.getElementById('nombres').value.trim();
+      const curso = document.getElementById('curso').value;
+      const status = document.getElementById('form-status');
+      const btn = document.getElementById('submit-btn');
+
+      if (!apellidos || !nombres || !curso) return;
+
+      btn.disabled = true;
+      status.style.color = 'var(--yellow)';
+      status.textContent = 'Verificando...';
+
+      const resultado = await API.verificarAlumno(apellidos, nombres);
+
+      if (!resultado || resultado.success === false) {
+        status.style.color = 'var(--red)';
+        status.textContent = '⚠️ No se pudo verificar tu registro. Revisa tu conexión e intenta de nuevo.';
+        btn.disabled = false;
+        return;
+      }
+
+      if (resultado.existe) {
+        status.style.color = 'var(--red)';
+        status.textContent = '❌ Ya existe un registro con este nombre y apellido. Solo se permite un intento por alumno. Si crees que es un error, contacta al profesor.';
+        btn.disabled = false;
+        return;
+      }
+
+      sessionStorage.setItem('apellidos', apellidos);
+      sessionStorage.setItem('nombres', nombres);
+      sessionStorage.setItem('curso', curso);
+      sessionStorage.removeItem('answered_s1');
+      sessionStorage.removeItem('answered_s2');
+      sessionStorage.removeItem('answered_s3');
+      sessionStorage.removeItem('answered_s4');
+
+      window.location.href = 'intro.html';
+    });
+  </script>
+</body>
+</html>

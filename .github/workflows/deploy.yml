@@ -1,0 +1,31 @@
+name: Desplegar a GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Generar config.js real desde Secrets (nunca se sube a main)
+        run: |
+          cat > frontend/config.js << EOF
+          window.CONFIG = {
+            APPS_SCRIPT_URL: '${{ secrets.APPS_SCRIPT_URL }}',
+            API_TOKEN: '${{ secrets.API_TOKEN }}'
+          };
+          EOF
+
+      - name: Publicar carpeta frontend en gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./frontend

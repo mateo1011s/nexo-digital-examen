@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Misión TCP/IP - Resultados</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card card-wide">
+      <div class="status-bar">
+        <span class="status-user" id="status-user"></span>
+        <span class="status-curso" id="status-curso"></span>
+        <span class="status-score">🏁 Misión Completa</span>
+      </div>
+
+      <h2 class="section-title" style="text-align:center;">MISIÓN COMPLETADA</h2>
+
+      <div style="text-align:center;margin:1rem 0;">
+        <span style="font-size:3rem;">🌐</span>
+      </div>
+
+      <div class="content-text" style="text-align:center;">
+        <p>¡Has logrado restaurar la comunicación en la red!</p>
+        <p>Se adquirió nuevo conocimiento y experiencia en la <span class="highlight">comunicación segura</span>.</p>
+      </div>
+
+      <div class="result-container">
+        <div class="result-label">TU PUNTAJE FINAL</div>
+        <div class="result-score" id="final-score">—</div>
+        <div class="result-label">sobre 20</div>
+      </div>
+
+      <div id="save-status" style="text-align:center;margin:1rem 0;font-size:0.9rem;"></div>
+      <div id="missing-warning" style="text-align:center;margin:1rem 0;font-size:0.85rem;color:var(--yellow);"></div>
+
+      <div class="btn-group">
+        <a href="index.html" class="btn btn-secondary">Salir</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/particles.js"></script>
+  <script src="config.js"></script>
+  <script src="assets/js/api.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      const apellidos = sessionStorage.getItem('apellidos');
+      const nombres = sessionStorage.getItem('nombres');
+      const curso = sessionStorage.getItem('curso');
+
+      if (!apellidos) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      document.getElementById('status-user').textContent = '👤 ' + apellidos;
+      document.getElementById('status-curso').textContent = '📚 ' + curso;
+
+      const secciones = ['s1', 's2', 's3', 's4'];
+      const respuestas = {};
+      let faltantes = 0;
+
+      secciones.forEach(function (sec) {
+        const answered = JSON.parse(sessionStorage.getItem('answered_' + sec) || '{}');
+        const arr = [];
+        for (let i = 0; i < 5; i++) {
+          if (answered[i] !== undefined) {
+            arr[i] = answered[i].respuesta;
+          } else {
+            faltantes++;
+          }
+        }
+        respuestas[sec] = arr;
+      });
+
+      const saveStatus = document.getElementById('save-status');
+      const warning = document.getElementById('missing-warning');
+
+      if (faltantes > 0) {
+        warning.textContent = '⚠️ Tienes ' + faltantes + ' pregunta(s) sin responder. Vuelve atrás y complétalas antes de finalizar; tu nota se calculará igual, pero las preguntas sin responder cuentan como incorrectas.';
+      }
+
+      saveStatus.textContent = '⏳ Guardando resultados...';
+      saveStatus.style.color = 'var(--yellow)';
+
+      const resultado = await API.guardarResultado({
+        apellidos: apellidos,
+        nombres: nombres,
+        curso: curso,
+        respuestas: respuestas
+      });
+
+      if (resultado && resultado.success) {
+        document.getElementById('final-score').textContent = resultado.nota;
+        saveStatus.textContent = '✅ Resultados guardados correctamente';
+        saveStatus.style.color = 'var(--green)';
+      } else if (resultado && resultado.duplicado) {
+        document.getElementById('final-score').textContent = '—';
+        saveStatus.textContent = '❌ ' + resultado.error;
+        saveStatus.style.color = 'var(--red)';
+      } else {
+        document.getElementById('final-score').textContent = '—';
+        saveStatus.textContent = '⚠️ Los resultados no pudieron enviarse al servidor. Contacta al profesor, tus respuestas siguen guardadas en esta pestaña mientras no la cierres.';
+        saveStatus.style.color = 'var(--red)';
+      }
+    });
+  </script>
+</body>
+</html>
