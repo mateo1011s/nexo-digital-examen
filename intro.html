@@ -12,7 +12,7 @@
       <div class="status-bar">
         <span class="status-user" id="status-user"></span>
         <span class="status-curso" id="status-curso"></span>
-        <span class="status-score">⚡ Misión: Introducción</span>
+        <span class="status-score"> Misión: Introducción</span>
       </div>
 
       <h2 class="section-title">Hace muchos años...</h2>
@@ -20,16 +20,10 @@
       <div class="content-text" id="story-text">
         <p>Las computadoras no podían comunicarse entre sí. Entonces apareció el poderoso sistema <span class="highlight">TCP/IP</span>, una tecnología creada para conectar el mundo digital.</p>
 
-        <p>Dentro de esta misión existen dos guardianes principales:</p>
-
-        <p><span class="highlight">TCP</span> — <em>El Protector de los Datos</em><br>
-        Su misión es asegurarse de que cada mensaje llegue correctamente.</p>
-
-        <p><span class="highlight-magenta">IP</span> — <em>El Navegante de la Red</em><br>
-        IP se encarga de encontrar el destino correcto.</p>
-
         <p>Pero algo salió mal... La red mundial ha comenzado a fallar y miles de datos se están perdiendo.</p>
 
+        <p>Ahora, con el conocimiento que has adquirido, tu misión es restaurar la comunicación entre dispositivos y salvar la red para poder certificarte como un agente del más alto rango.</p>
+        
         <p style="font-size:1.1rem;text-align:center;margin-top:2rem;">
           Superarás <span class="highlight">4 misiones</span>, cada una con <span class="highlight">5 pruebas</span>, para restaurar la comunicación entre dispositivos y salvar la red.
         </p>
@@ -44,8 +38,8 @@
   <script src="assets/js/particles.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      document.getElementById('status-user').textContent = '👤 ' + (sessionStorage.getItem('apellidos') || '—');
-      document.getElementById('status-curso').textContent = '📚 ' + (sessionStorage.getItem('curso') || '—');
+      document.getElementById('status-user').textContent =  (sessionStorage.getItem('apellidos') || '—');
+      document.getElementById('status-curso').textContent = (sessionStorage.getItem('curso') || '—');
       if (!sessionStorage.getItem('apellidos')) window.location.href = 'index.html';
     });
   </script>

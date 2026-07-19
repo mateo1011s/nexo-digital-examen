@@ -59,8 +59,8 @@
     ];
 
     document.addEventListener('DOMContentLoaded', function () {
-      document.getElementById('status-user').textContent = '👤 ' + (sessionStorage.getItem('apellidos') || '—');
-      document.getElementById('status-curso').textContent = '📚 ' + (sessionStorage.getItem('curso') || '—');
+      document.getElementById('status-user').textContent = (sessionStorage.getItem('apellidos') || '—') + ' ' + (sessionStorage.getItem('nombres') || '—');
+      document.getElementById('status-curso').textContent = (sessionStorage.getItem('curso') || '—');
       if (!sessionStorage.getItem('apellidos')) { window.location.href = 'index.html'; return; }
       QuizEngine.init('s1', questions);
     });
