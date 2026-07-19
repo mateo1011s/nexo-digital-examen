@@ -12,7 +12,7 @@
       <div class="status-bar">
         <span class="status-user" id="status-user"></span>
         <span class="status-curso" id="status-curso"></span>
-        <span class="status-score">🏁 Misión Completa</span>
+        <span class="status-score"> Misión Completa</span>
       </div>
 
       <h2 class="section-title" style="text-align:center;">MISIÓN COMPLETADA</h2>
@@ -55,8 +55,8 @@
         return;
       }
 
-      document.getElementById('status-user').textContent = '👤 ' + apellidos;
-      document.getElementById('status-curso').textContent = '📚 ' + curso;
+      document.getElementById('status-user').textContent = apellidos + ' ' + nombres;
+      document.getElementById('status-curso').textContent =  curso;
 
       const secciones = ['s1', 's2', 's3', 's4'];
       const respuestas = {};
