@@ -22,12 +22,6 @@
 
       <h2 class="section-title">Arquitectura Cliente-Servidor</h2>
 
-      <div class="content-text">
-        <p>El <strong>cliente</strong> es el nodo proactivo que inicia la comunicación. El <strong>servidor</strong> es el nodo de escucha que espera conexiones.</p>
-        <p>Secuencia: configuración y escucha → solicitud de conexión → canal activo-activo → flujo de información → liberación de recursos.</p>
-      </div>
-
-      <h2 class="section-title">Prueba de Conocimiento</h2>
       <div id="quiz-container"></div>
 
       <div class="btn-group">
@@ -43,24 +37,24 @@
   <script>
     const questions = [
       {
-        question: 'En la arquitectura cliente-servidor, ¿qué dispositivo inicia la comunicación?',
-        options: ['El servidor', 'El cliente', 'El router', 'Ambos simultáneamente']
+        question: '¿Por qué se dice que el cliente es el "nodo proactivo" y el servidor el "nodo de escucha"?',
+        options: ['Porque el servidor tiene mayor capacidad de procesamiento', 'Porque el cliente decide cuándo y a qué IP/puerto solicitar la conexión, mientras el servidor espera pasivamente esa solicitud', 'Porque el servidor no tiene IP fija', 'Por seguridad exigida por TCP']
       },
       {
-        question: '¿Qué caracteriza al servidor en este modelo?',
-        options: ['Inicia todas las conexiones', 'Permanece a la escucha esperando conexiones entrantes', 'No necesita IP fija', 'Se cierra automáticamente tras cada mensaje']
+        question: 'Durante el "canal activo-activo", ¿qué papel juega específicamente accept() del lado del servidor?',
+        options: ['Cierra la conexión existente', 'Acepta la solicitud de conexión del cliente y habilita el intercambio bidireccional', 'Configura la IP del servidor', 'Convierte el mensaje a bytes']
       },
       {
-        question: '¿Qué ocurre justo después de que el cliente solicita la conexión?',
-        options: ['Se libera la conexión', 'El servidor acepta la conexión y se abre un canal bidireccional', 'El cliente se desconecta', 'Se reinicia el servidor']
+        question: 'Dos clientes distintos se conectan al mismo servidor al mismo tiempo, apuntando a la misma IP y puerto del servidor. ¿Por qué el servidor puede atender ambas conexiones sin mezclar los datos?',
+        options: ['Porque el servidor duplica su IP para cada cliente', 'Porque cada conexión aceptada genera un socket distinto, diferenciado también por la IP y el puerto del cliente que se conectó', 'Porque solo puede atender una a la vez y la segunda espera en cola indefinidamente', 'Porque UDP separa automáticamente las conexiones']
       },
       {
-        question: '¿Cuál es el último paso lógico en la secuencia de una conexión cliente-servidor?',
-        options: ['Configuración y escucha', 'Solicitud de conexión', 'Flujo de información', 'Liberación de recursos']
+        question: 'El servidor cae justo después de ejecutar listen(), pero antes de que un cliente intente conectarse. ¿Qué pasa cuando el cliente intenta conectarse mientras el servidor está caído?',
+        options: ['Se conecta usando el socket anterior', 'La conexión falla, porque no hay ningún proceso escuchando en ese puerto', 'El servidor se reinicia automáticamente', 'El cliente pasa a actuar como servidor']
       },
       {
-        question: 'Durante la fase de "flujo de información", ¿qué realizan cliente y servidor?',
-        options: ['Cierran la conexión', 'Intercambian datos mediante envío y recepción de paquetes', 'Configuran el socket por primera vez', 'Esperan sin comunicarse']
+        question: 'Un servidor intercambia datos con un cliente pero nunca ejecuta close(). ¿Qué consecuencia tiene esto a mediano plazo si recibe muchas conexiones?',
+        options: ['Ninguna, el sistema libera recursos automáticamente', 'Se agotan progresivamente los recursos del sistema, afectando la capacidad de atender nuevas conexiones', 'El servidor empieza a actuar como cliente', 'Los datos futuros llegan duplicados']
       }
     ];
 
